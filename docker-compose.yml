@@ -2,22 +2,24 @@ version: '3.7'
 
 services:
   server:
-    image: shouryap1/backend
+    image: shouryap1/backend:latest
     container_name: myapp-node-server
     ports:
       - "8000:8000"
     environment:
       - NODE_ENV=development
-      - MONGO_URI=mongodb+srv://ritikgupta1424:EUptZ6OUOqSwGKec@cluster0.vqbikv5.mongodb.net/
+      - MONGO_URI=mongodb+srv://ritikgupta1424:EUptZ6OUOqSwGKec@cluster0.vqbikv5.mongodb.net/YOUR_DB_NAME?retryWrites=true&w=majority
     networks:
       - app-network
     depends_on:
       - client
     volumes:
       - /app/node_modules
+    dns:
+      - 8.8.8.8  # Use Google's public DNS to ensure proper DNS resolution
 
   client:
-    image: shouryap1/frontend
+    image: shouryap1/frontend:latest
     container_name: myapp-react-client
     ports:
       - "5173:5173"
