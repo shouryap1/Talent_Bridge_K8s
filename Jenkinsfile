@@ -13,7 +13,7 @@ pipeline{
 
         stage("Stage 2 : Backend Testing"){
             steps{
-                sh 'cd backend/tests'
+                sh 'cd Talent-Bridge/backend/tests'
                 sh 'npm test'
             }
         }
