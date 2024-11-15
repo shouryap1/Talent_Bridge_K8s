@@ -1,6 +1,12 @@
 pipeline {
     environment {
         DOCKERHUB_CRED = credentials("Docker_Credentials_shouryap1")
+        MONGO_URI = credentials("mongo-uri")
+        SECRET_KEY = credentials("cloud_secret_key")
+        CLOUD_NAME = credentials("cloud_name")
+        API_KEY = credentials("cloud_api_key")
+        API_SECRET = credentials("cloud_api_secret")
+        PORT = "8000"  // Hardcoded as it is not sensitive
     }
     agent any
     tools {nodejs "NODEJS"} 
