@@ -14,7 +14,7 @@ pipeline {
         stage("Stage 2: Backend Testing") {
             steps {
                 sh '''
-                cd Talent-Bridge/backend/tests
+                cd backend/tests
                 npm test
                 '''
             }
