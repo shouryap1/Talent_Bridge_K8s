@@ -15,8 +15,10 @@ pipeline {
         stage("Stage 2: Backend Testing") {
             steps {
                 sh '''
-                cd backend/tests
-                npm install -g mocha chai sinon
+                cd backend
+                npm i
+                cd tests
+                npm install mocha chai sinon
                 npm test
                 '''
             }
