@@ -2,14 +2,8 @@ version: '3.7'
 
 services:
   server:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: myapp-server
+    image: shouryap1/backend
     container_name: myapp-node-server
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
     ports:
       - "8000:8000"
     environment:
@@ -19,22 +13,20 @@ services:
       - app-network
     depends_on:
       - client
+    volumes:
+      - /app/node_modules
 
   client:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    image: myapp-client
+    image: shouryap1/frontend
     container_name: myapp-react-client
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
     ports:
       - "5173:5173"
     environment:
       - NODE_ENV=development
     networks:
       - app-network
+    volumes:
+      - /app/node_modules
 
 networks:
   app-network:
