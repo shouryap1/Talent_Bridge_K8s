@@ -3,6 +3,7 @@ pipeline {
         DOCKERHUB_CRED = credentials("Docker_Credentials_shouryap1")
     }
     agent any
+    tools {nodejs "NODEJS"} 
     stages {
         stage("Stage 1: Git Clone") {
             steps {
