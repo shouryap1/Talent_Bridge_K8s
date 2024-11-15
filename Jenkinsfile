@@ -39,6 +39,12 @@ pipeline {
                 '''
             }
         }
+        stage("Stage 3.5: Remove docker images and container") {
+            steps {
+                sh "docker container prune -f"
+                sh "docker image prune -a -f"
+            }
+        }
 
         stage("Stage 4: Creating Docker Image for frontend") {
             steps {
