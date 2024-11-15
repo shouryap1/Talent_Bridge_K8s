@@ -6,7 +6,7 @@ pipeline {
         CLOUD_NAME = credentials("cloud_name")
         API_KEY = credentials("cloud_api_key")
         API_SECRET = credentials("cloud_api_secret")
-        PORT = "8000"  // Hardcoded as it is not sensitive
+        PORT = "8000" 
     }
     agent any
     tools {nodejs "NODEJS"} 
