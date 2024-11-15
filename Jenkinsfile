@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        DOCKERHUB_CRED = credentials("ritikgupta0114")
+        DOCKERHUB_CRED = credentials("Docker_Credentials_shouryap1")
     }
     agent any
     stages {
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh '''
                 cd Talent-Bridge/frontend
-                docker build -t ritikgupta0114/frontend:latest .
+                docker build -t shouryap1/frontend:latest .
                 '''
             }
         }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 sh '''
                 cd Talent-Bridge/backend
-                docker build -t ritikgupta0114/backend:latest .
+                docker build -t shouryap1/backend:latest .
                 '''
             }
         }
@@ -52,7 +52,7 @@ pipeline {
             steps {
                 sh '''
                 docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-                docker push ritikgupta0114/frontend:latest
+                docker push shouryap1/frontend:latest
                 '''
             }
         }
@@ -61,7 +61,7 @@ pipeline {
             steps {
                 sh '''
                 docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-                docker push ritikgupta0114/backend:latest
+                docker push shouryap1/backend:latest
                 '''
             }
         }

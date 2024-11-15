@@ -1,0 +1,5 @@
+<Location "/theme-dark/theme.css">
+    Deny from all
+</Location>
+
+
