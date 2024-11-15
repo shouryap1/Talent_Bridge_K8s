@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: myapp-server
+    container_name: myapp-node-server
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - "8000:8000"
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb+srv://ritikgupta1424:EUptZ6OUOqSwGKec@cluster0.vqbikv5.mongodb.net/
+    networks:
+      - app-network
+    depends_on:
+      - client
+
+  client:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: myapp-client
+    container_name: myapp-react-client
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  node_modules:
