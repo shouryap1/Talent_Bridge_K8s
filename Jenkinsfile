@@ -76,6 +76,7 @@ pipeline {
         stage("Stage 7: Push Backend Docker Image") {
             steps {
                 sh '''
+                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
                 docker push shouryap1/backend:latest
                 '''
             }
