@@ -13,7 +13,8 @@ pipeline {
     stages {
         stage("Stage 1: Git Clone") {
             steps {
-                // sh "git clone https://github.com/shouryap1/Talent-Bridge.git"
+                sh "rm Talent-Bridge"
+                sh "git clone https://github.com/shouryap1/Talent-Bridge.git"
                 sh "ls"
             }
         }
@@ -51,8 +52,6 @@ pipeline {
                 sh '''
                 cd Talent-Bridge/frontend
                 docker build -t shouryap1/frontend:latest .
-                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-                docker push shouryap1/frontend:latest
                 '''
             }
         }
@@ -62,28 +61,26 @@ pipeline {
                 sh '''
                 cd Talent-Bridge/backend
                 docker build -t shouryap1/backend:latest .
+                '''
+            }
+        }
+
+        stage("Stage 6: Push Frontend Docker Image") {
+            steps {
+                sh '''
+                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+                docker push shouryap1/frontend:latest
+                '''
+            }
+        }
+
+        stage("Stage 7: Push Backend Docker Image") {
+            steps {
+                sh '''
                 docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
                 docker push shouryap1/backend:latest
                 '''
             }
         }
-
-        // stage("Stage 6: Push Frontend Docker Image") {
-        //     steps {
-        //         sh '''
-        //         docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-        //         docker push shouryap1/frontend:latest
-        //         '''
-        //     }
-        // }
-
-        // stage("Stage 7: Push Backend Docker Image") {
-        //     steps {
-        //         sh '''
-        //         docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-        //         docker push shouryap1/backend:latest
-        //         '''
-        //     }
-        // }
     }
 }
