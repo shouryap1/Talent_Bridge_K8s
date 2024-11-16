@@ -1,7 +1,6 @@
 pipeline {
     environment {
         DOCKERHUB_CRED = credentials("Docker_Credentials_shouryap1")
-        GIT_CRED = credentials("Github_Credentials_shouryap1")
         MONGO_URI = credentials("mongo-uri")
         SECRET_KEY = credentials("cloud_secret_key")
         CLOUD_NAME = credentials("cloud_name")
