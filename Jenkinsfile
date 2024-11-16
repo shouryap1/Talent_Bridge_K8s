@@ -1,6 +1,7 @@
 pipeline {
     environment {
         DOCKERHUB_CRED = credentials("Docker_Credentials_shouryap1")
+        GIT_CRED = credentials("Github_Credentials_shouryap1")
         MONGO_URI = credentials("mongo-uri")
         SECRET_KEY = credentials("cloud_secret_key")
         CLOUD_NAME = credentials("cloud_name")
@@ -14,7 +15,7 @@ pipeline {
         stage("Stage 1: Git Clone") {
             steps {
                 sh "rm -r Talent-Bridge"
-                sh "git clone https://github.com/shouryap1/Talent-Bridge.git"
+                sh "git clone https://${GIT_CRED_USR}:${GIT_CRED_PSW}@github.com/shouryap1/Talent-Bridge.git"
                 sh "ls"
             }
         }
