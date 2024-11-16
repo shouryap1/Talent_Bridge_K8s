@@ -14,7 +14,7 @@ pipeline {
         stage("Stage 1: Git Clone") {
             steps {
                 sh '''
-                git clone git@github.com:shouryap1/Talent-Bridge.git
+                git clone https://github.com/shouryap1/Talent-Bridge.git
                 
                 '''
             }
