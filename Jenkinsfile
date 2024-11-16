@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage("Stage 1: Git Clone") {
             steps {
-                // sh "rm Talent-Bridge"
+                sh "rm -r Talent-Bridge"
                 sh "git clone https://github.com/shouryap1/Talent-Bridge.git"
                 sh "ls"
             }
