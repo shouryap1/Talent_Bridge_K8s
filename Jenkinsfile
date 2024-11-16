@@ -15,7 +15,6 @@ pipeline {
         stage("Stage 1: Git Clone") {
             steps {
                 sh '''
-                rm -r Talent-Bridge
                 git clone git@github.com:shouryap1/Talent-Bridge.git
                 
                 '''
