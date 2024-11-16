@@ -30,15 +30,15 @@ pipeline {
             }
         }
 
-        stage("Stage 3: Build frontend") {
-            steps {
-                sh '''
-                cd Talent-Bridge/frontend
-                npm install
-                npm run build
-                '''
-            }
-        }
+        // stage("Stage 3: Build frontend") {
+        //     steps {
+        //         sh '''
+        //         cd Talent-Bridge/frontend
+        //         npm install
+        //         npm run build
+        //         '''
+        //     }
+        // }
         stage("Stage 3.5: Remove docker images and container") {
             steps {
                 sh "docker container prune -f"
@@ -51,6 +51,8 @@ pipeline {
                 sh '''
                 cd Talent-Bridge/frontend
                 docker build -t shouryap1/frontend:latest .
+                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+                docker push shouryap1/frontend:latest
                 '''
             }
         }
@@ -60,26 +62,28 @@ pipeline {
                 sh '''
                 cd Talent-Bridge/backend
                 docker build -t shouryap1/backend:latest .
-                '''
-            }
-        }
-
-        stage("Stage 6: Push Frontend Docker Image") {
-            steps {
-                sh '''
-                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-                docker push shouryap1/frontend:latest
-                '''
-            }
-        }
-
-        stage("Stage 7: Push Backend Docker Image") {
-            steps {
-                sh '''
                 docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
                 docker push shouryap1/backend:latest
                 '''
             }
         }
+
+        // stage("Stage 6: Push Frontend Docker Image") {
+        //     steps {
+        //         sh '''
+        //         docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+        //         docker push shouryap1/frontend:latest
+        //         '''
+        //     }
+        // }
+
+        // stage("Stage 7: Push Backend Docker Image") {
+        //     steps {
+        //         sh '''
+        //         docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+        //         docker push shouryap1/backend:latest
+        //         '''
+        //     }
+        // }
     }
 }
