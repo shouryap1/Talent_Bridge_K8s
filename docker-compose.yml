@@ -8,7 +8,7 @@ services:
       - "8000:8000"
     environment:
       - NODE_ENV=development
-      - MONGO_URI=mongodb+srv://ritikgupta1424:EUptZ6OUOqSwGKec@cluster0.vqbikv5.mongodb.net/YOUR_DB_NAME?retryWrites=true&w=majority
+      - MONGO_URI=mongodb+srv://ritikgupta1424:WRdnbS610yMdL6lT@cluster0.vqbikv5.mongodb.net/
     networks:
       - app-network
     depends_on:
