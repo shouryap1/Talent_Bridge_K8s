@@ -17,7 +17,7 @@ spec:
           image: shouryap1/frontend:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 5173
           resources:
             requests:
               memory: "256Mi" # Request 256 megabytes of memory
