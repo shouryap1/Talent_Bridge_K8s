@@ -108,7 +108,7 @@ pipeline {
             steps{
                 sh'''
                  cd Talent_Bridge_K8s
-                 ansible-playbook -i Deploy_App.yaml 
+                 ansible-playbook -i inventory Deploy_App.yaml 
                  '''
             }
 
