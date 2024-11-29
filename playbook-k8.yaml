@@ -3,11 +3,11 @@
   hosts: all
   tasks:
     - name: Install required Python packages
-      apt:
+      pip:
         name:
-          - python3-openshift
-          - python3-pyyaml
-          - python3-kubernetes
+          - openshift
+          - pyyaml
+          - kubernetes
         state: present
       become: yes
       become_method: sudo
