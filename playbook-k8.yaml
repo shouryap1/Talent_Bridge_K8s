@@ -6,14 +6,9 @@
       shell: |
         python3 -m venv kuber
         bash -c "source kuber/bin/activate"
+        pip install openshift pyyaml kubernetes
 
 
-    - name: install pre-requisites
-      pip:
-        name:
-          - openshift
-          - pyyaml
-          - kubernetes 
     - name: Start Minikube
       shell: |
         minikube start
