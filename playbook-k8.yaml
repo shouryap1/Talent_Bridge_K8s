@@ -1,0 +1,57 @@
+---
+- name: Deploying with Kubernetes
+  hosts: all
+  tasks:
+
+    - name: install pre-requisites
+      pip:
+        name:
+          - openshift
+          - pyyaml
+          - kubernetes 
+    - name: Start Minikube
+      shell: |
+        minikube start
+        minikube ip
+
+    - name: Clone the repository
+      shell: |
+        git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
+        cd Talent_Bridge_K8s
+        cd kub
+    - name: Apply Secrets
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'backend-deployment.yaml') | from_yaml }}"
+
+    - name: Create Frontend Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'backend-hpa.yaml') | from_yaml }}" 
+
+    - name: Create Frontend Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'backend-secret.yaml') | from_yaml }}" 
+
+
+    - name: Create Backend Deployment
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'backend-service.yaml') | from_yaml }}"
+
+    - name: Create Backend Service
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'frontend-deployment.yaml') | from_yaml }}"
+
+
+    - name: Create Config Map
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'frontend-hpa.yaml') | from_yaml }}" 
+
+    - name: Create Ingress
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'frontend-service.yaml') | from_yaml }}" 
