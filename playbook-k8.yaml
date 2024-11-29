@@ -22,11 +22,12 @@
     - name: Clone the repository
       shell:
         git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
+        cd Talent_Bridge_K8s
 
     - name: Apply Secrets
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', '/home/{{ ansible_user }}/Talent_Bridge_K8s/kub/backend-deployment.yaml') | from_yaml }}"
+        definition: "{{ lookup('file', 'kub/backend-deployment.yaml') | from_yaml }}"
 
     - name: Create Frontend Deployment
       kubernetes.core.k8s:
