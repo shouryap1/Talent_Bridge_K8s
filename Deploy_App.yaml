@@ -5,7 +5,7 @@
   tasks:
     - name: Start Minikube
       shell: |
-        minikube start
+        minikube ip
 
     - name: Clone the repository
       shell: |
