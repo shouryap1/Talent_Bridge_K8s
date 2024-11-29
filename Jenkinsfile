@@ -108,7 +108,7 @@ pipeline {
             steps{
                 sh'''
                  cd Talent_Bridge_K8s
-                 ansible-playbook -i Deploy_App.yaml --ask-become-pass
+                 ansible-playbook -i Deploy_App.yaml 
                  '''
             }
 
