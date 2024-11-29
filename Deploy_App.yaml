@@ -18,21 +18,13 @@
         kubectl config use-context minikube
 
     - name: Scan frontend image with Trivy
-      shell: trivy image shouryap1/frontend:latest
+      shell: |
+        trivy image shouryap1/frontend:latest
 
     - name: Scan backend image with Trivy
-      shell: trivy image shouryap1/backend:latest
-    
-    - name: Set KUBECONFIG environment variable
-      become: yes
       shell: |
-        export KUBECONFIG=/home/shourya/.kube/config
-        kubectl config use-context minikube
+        trivy image shouryap1/backend:latest
 
-
-
-    - name: Apply Kubernetes configurations with elevated permissions
-      become: yes
+    - name: Apply Kubernetes configurations
       shell: |
         kubectl apply -f Talent_Bridge_K8s/kub/ --validate=false
-
