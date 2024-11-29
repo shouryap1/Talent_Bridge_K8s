@@ -108,7 +108,7 @@ pipeline {
             steps{
                 sh'''
                  cd Talent_Bridge_K8s
-                 ansible-playbook -i inventory Deploy_App.yaml
+                 sudo -u shourya ansible-playbook playbook.yml
                  '''
             }
 

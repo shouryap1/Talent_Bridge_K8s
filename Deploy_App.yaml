@@ -25,6 +25,7 @@
       shell: |
         trivy image shouryap1/backend:latest
 
-    - name: Apply Kubernetes configurations
+    - name: Apply Kubernetes configurations using Minikube's built-in kubectl
       shell: |
-        kubectl apply -f Talent_Bridge_K8s/kub/ --validate=false
+        minikube kubectl -- apply -f Talent_Bridge_K8s/kub/ --validate=false
+
