@@ -4,8 +4,6 @@
   tasks:
     - name: Creating env
       shell: |
-        python3 -m venv kuber
-        source kuber/bin/activate
         apt install -y python3-openshift python3-pyyaml python3-kubernetes
     - name: Start Minikube
       shell: |
