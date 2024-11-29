@@ -6,7 +6,9 @@
       shell: |
         python3 -m venv kuber
         bash -c "source kuber/bin/activate"
-        pip install openshift pyyaml kubernetes
+        apt install python3-openshift 
+        apt install python3-pyyaml 
+        apt install python3-kubernetes
 
 
     - name: Start Minikube
