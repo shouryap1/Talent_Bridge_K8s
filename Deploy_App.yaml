@@ -24,9 +24,11 @@
       shell: trivy image shouryap1/backend:latest
     
     - name: Set KUBECONFIG environment variable
+      become: yes
       shell: |
         export KUBECONFIG=/home/shourya/.kube/config
         kubectl config use-context minikube
+
 
 
     - name: Apply Kubernetes configurations with elevated permissions
