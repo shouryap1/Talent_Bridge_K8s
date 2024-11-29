@@ -3,10 +3,9 @@
   hosts: all
 
   tasks:
-    - name: Start Kubernetes Service
-      service:
-        name: kubectl
-        state: started
+    - name: Start Minikube
+      shell: |
+        minikube status || minikube start
 
     - name: Clone the repository
       shell: |
@@ -20,4 +19,5 @@
       shell: trivy image shouryap1/backend:latest
 
     - name: Apply Kubernetes configurations
-      shell: kubectl apply -f Talent_Bridge_K8s/kub/
+      shell: |
+        kubectl apply -f Talent_Bridge_K8s/kub/
