@@ -7,6 +7,7 @@ pipeline {
         API_KEY = credentials("cloud_api_key")
         API_SECRET = credentials("cloud_api_secret")
         PORT = "8000" 
+        MINIKUBE_HOME = '/home/jenkins/.minikube'
     }
     agent any
     tools {nodejs "NODEJS"} 
@@ -27,8 +28,6 @@ pipeline {
                     sh 'minikube start'
                     
                     // Set up environment variables for Kubernetes
-                    sh 'export KUBEVIRT_KUBECONFIG=$HOME/.minikube/config'
-                    sh 'export KUBEVIRT_CA_CERT=$HOME/.minikube/ca.crt'
                 }
             }
         }
