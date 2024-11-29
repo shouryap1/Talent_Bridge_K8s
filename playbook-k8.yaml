@@ -2,58 +2,31 @@
 - name: Deploying with Kubernetes
   hosts: all
   tasks:
-    - name: Install required dependencies for package installation
+    - name: Install required system packages for Python and virtualenv
       apt:
         name:
-          - wget
+          - python3-venv
+          - python3-pip
           - python3-dev
-          - build-essential
         state: present
       become: yes
       become_method: sudo
       become_user: root
 
-    - name: Download python3-openshift package
-      get_url:
-        url: "https://files.pythonhosted.org/packages/85/9e/d2cb07364b51ecb7e3efb2b95ab038e2890b8492f53ca42dce71d009d5da/python-openshift-0.14.0.tar.gz"
-        dest: "/tmp/python-openshift-0.14.0.tar.gz"
-
-    - name: Download python3-pyyaml package
-      get_url:
-        url: "https://files.pythonhosted.org/packages/01/7f/56a264e5c6f86a035ab2d3228792a77faddb380b1ea9eec9481efba9b0f9/PyYAML-5.4.1.tar.gz"
-        dest: "/tmp/PyYAML-5.4.1.tar.gz"
-
-    - name: Download python3-kubernetes package
-      get_url:
-        url: "https://files.pythonhosted.org/packages/29/a6/50f52e623aba7b45307387b179f6ed70006b4c5a2a03c2a39c387913564d/kubernetes-25.0.0.tar.gz"
-        dest: "/tmp/kubernetes-25.0.0.tar.gz"
-
-    - name: Install python3-openshift package
+    - name: Create a Python3 virtual environment
       shell: |
-        cd /tmp
-        tar -xzvf python-openshift-0.14.0.tar.gz
-        cd python-openshift-0.14.0
-        python3 setup.py install
+        python3 -m venv /home/{{ ansible_user }}/myenv
       become: yes
       become_method: sudo
       become_user: root
 
-    - name: Install python3-pyyaml package
-      shell: |
-        cd /tmp
-        tar -xzvf PyYAML-5.4.1.tar.gz
-        cd PyYAML-5.4.1
-        python3 setup.py install
-      become: yes
-      become_method: sudo
-      become_user: root
-
-    - name: Install python3-kubernetes package
-      shell: |
-        cd /tmp
-        tar -xzvf kubernetes-25.0.0.tar.gz
-        cd kubernetes-25.0.0
-        python3 setup.py install
+    - name: Install required Python packages in the virtual environment
+      pip:
+        name:
+          - python3-openshift
+          - python3-pyyaml
+          - python3-kubernetes
+        virtualenv: /home/{{ ansible_user }}/myenv
       become: yes
       become_method: sudo
       become_user: root
