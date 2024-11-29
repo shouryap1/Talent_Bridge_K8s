@@ -14,8 +14,8 @@ pipeline {
         stage("Stage 1: Git Clone") {
             steps {
                 sh '''
-                [ -d Talent-Bridge ] && rm -rf Talent-Bridge
-                git clone https://github.com/shouryap1/Talent-Bridge.git
+                [ -d Talent_Bridge_K8s ] && rm -rf Talent_Bridge_K8s
+                git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
                 
                 '''
             }
@@ -36,7 +36,7 @@ pipeline {
         // stage("Stage 3: Build frontend") {
         //     steps {
         //         sh '''
-        //         cd Talent-Bridge/frontend
+        //         cd Talent_Bridge_K8s/frontend
         //         npm install
         //         npm run build
         //         '''
@@ -48,24 +48,44 @@ pipeline {
                 sh "docker image prune -a -f"
             }
         }
+        stage("Stage 3.75: Install Trivy ") {
+            steps {
+                sh '''
+                sudo apt install wget
+                wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+                echo "deb https://aquasecurity.github.io/trivy-repo/deb stable main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+                sudo apt update
+                sudo apt install trivy
+                '''
+            }
+        }
+        
 
         stage("Stage 4: Creating Docker Image for frontend") {
             steps {
                 sh '''
-                cd Talent-Bridge/frontend
+                cd Talent_Bridge_K8s/frontend
                 docker build -t shouryap1/frontend:latest .
                 '''
             }
         }
+        // stage("Stage 4.5: Scan Docker Image for frontend") {
+        //     steps {
+        //         sh '''
+        //         trivy image -t shouryap1/frontend:latest .
+        //         '''
+        //     }
+        // }
 
         stage("Stage 5: Creating Docker Image for backend") {
             steps {
                 sh '''
-                cd Talent-Bridge/backend
+                cd Talent_Bridge_K8s/backend
                 docker build -t shouryap1/backend:latest .
                 '''
             }
         }
+
 
         stage("Stage 6: Push Frontend Docker Image") {
             steps {
@@ -87,7 +107,7 @@ pipeline {
         stage("Stage 8: Ansible"){
             steps{
                 sh'''
-                 cd Talent-Bridge
+                 cd Talent_Bridge_K8s
                  ansible-playbook -i inventory Deploy_App.yaml
                  '''
             }
