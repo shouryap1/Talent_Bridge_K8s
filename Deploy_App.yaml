@@ -1,21 +1,32 @@
 ---
-- name: Pull Docker Image of Calculator
+- name: Pull Docker Image of Calculator and Scan with Trivy
   hosts: all
 
   tasks:
-    - name: Start K8s
+    - name: Start Kubernetes Service
       service:
-        name: K8s
+        name: k8s
         state: started
 
+    - name: Install Trivy
+      shell: |
+        sudo apt-get update -y
+        sudo apt-get install wget -y
+        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+        echo "deb https://aquasecurity.github.io/trivy-repo/deb stable main" | sudo tee /etc/apt/sources.list.d/trivy.list
+        sudo apt-get update -y
+        sudo apt-get install trivy -y
+
     - name: Clone the repository
-      shell: git clone https://github.com/shouryap1/Talent_Bridge_K8s.git && cd Talent_Bridge_K8s
-    
+      shell: |
+        git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
+        cd Talent_Bridge_K8s
+
     - name: Scan frontend image
       shell: trivy image shouryap1/frontend:latest
-    
+
     - name: Scan backend image
       shell: trivy image shouryap1/backend:latest
 
-    - name: Run
-      shell: kubectl apply -f kub/
+    - name: Apply Kubernetes configurations
+      shell: kubectl apply -f Talent_Bridge_K8s/kub/
