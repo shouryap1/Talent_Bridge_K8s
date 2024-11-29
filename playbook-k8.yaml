@@ -20,11 +20,8 @@
         minikube ip
 
     - name: Clone the repository
-      git:
-        repo: https://github.com/shouryap1/Talent_Bridge_K8s.git
-        dest: /home/{{ ansible_user }}/Talent_Bridge_K8s
-        clone: yes
-        update: yes
+      shell:
+        git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
 
     - name: Apply Secrets
       kubernetes.core.k8s:
