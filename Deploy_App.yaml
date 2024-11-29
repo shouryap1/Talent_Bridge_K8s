@@ -5,7 +5,7 @@
   tasks:
     - name: Start Minikube
       shell: |
-        minikube status || minikube start
+        minikube start
 
     - name: Clone the repository
       shell: |
