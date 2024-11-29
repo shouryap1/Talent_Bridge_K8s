@@ -108,7 +108,7 @@ pipeline {
             steps{
                 sh'''
                  cd Talent_Bridge_K8s
-                 sudo -u shourya ansible-playbook playbook.yml
+                 sudo -S -u shourya ansible-playbook playbook.yml
                  '''
             }
 
