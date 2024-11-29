@@ -5,7 +5,8 @@
     - name: Creating env
       shell: |
         python3 -m venv kuber
-        source kuber/bin/activate
+        . kuber/bin/activate
+
     - name: install pre-requisites
       pip:
         name:
