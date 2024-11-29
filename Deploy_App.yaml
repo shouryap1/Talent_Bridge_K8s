@@ -5,17 +5,8 @@
   tasks:
     - name: Start Kubernetes Service
       service:
-        name: k8s
+        name: kubectl
         state: started
-
-    - name: Install Trivy
-      shell: |
-        sudo apt-get update -y
-        sudo apt-get install wget -y
-        wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-        echo "deb https://aquasecurity.github.io/trivy-repo/deb stable main" | sudo tee /etc/apt/sources.list.d/trivy.list
-        sudo apt-get update -y
-        sudo apt-get install trivy -y
 
     - name: Clone the repository
       shell: |
