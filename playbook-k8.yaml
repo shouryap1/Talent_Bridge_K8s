@@ -2,7 +2,10 @@
 - name: Deploying with Kubernetes
   hosts: all
   tasks:
-
+    - name: Creating env
+      shell: |
+        python3 -m venv kuber
+        source kuber/bin/activate
     - name: install pre-requisites
       pip:
         name:
