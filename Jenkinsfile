@@ -20,6 +20,18 @@ pipeline {
                 '''
             }
         }
+         stage('Setup Minikube') {
+            steps {
+                script {
+                    // Start Minikube
+                    sh 'minikube start'
+                    
+                    // Set up environment variables for Kubernetes
+                    sh 'export KUBEVIRT_KUBECONFIG=$HOME/.minikube/config'
+                    sh 'export KUBEVIRT_CA_CERT=$HOME/.minikube/ca.crt'
+                }
+            }
+        }
 
         // stage("Stage 2: Backend Testing") {
         //     steps {
