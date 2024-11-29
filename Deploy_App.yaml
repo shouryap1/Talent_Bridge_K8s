@@ -25,4 +25,4 @@
 
     - name: Apply Kubernetes configurations
       shell: |
-        kubectl apply -f Talent_Bridge_K8s/kub/
+        kubectl apply -f Talent_Bridge_K8s/kub/ --validate=false
