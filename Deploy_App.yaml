@@ -27,5 +27,5 @@
 
     - name: Apply Kubernetes configurations using Minikube's built-in kubectl
       shell: |
-        minikube kubectl -- apply -f Talent_Bridge_K8s/kub/ --validate=false
+        kubectl apply -f Talent_Bridge_K8s/kub/ --validate=false
 
