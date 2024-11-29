@@ -5,6 +5,7 @@
   tasks:
     - name: Start Minikube
       shell: |
+        minikube start
         minikube ip
 
     - name: Clone the repository
@@ -12,10 +13,14 @@
         git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
         cd Talent_Bridge_K8s
 
-    - name: Scan frontend image
+    - name: Set Kubernetes context to Minikube
+      shell: |
+        kubectl config use-context minikube
+
+    - name: Scan frontend image with Trivy
       shell: trivy image shouryap1/frontend:latest
 
-    - name: Scan backend image
+    - name: Scan backend image with Trivy
       shell: trivy image shouryap1/backend:latest
 
     - name: Apply Kubernetes configurations
