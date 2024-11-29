@@ -2,31 +2,14 @@
 - name: Deploying with Kubernetes
   hosts: all
   tasks:
-    - name: Install required system packages for Python and virtualenv
-      apt:
-        name:
-          - python3-venv
-          - python3-pip
-          - python3-dev
-        state: present
-      become: yes
-      become_method: sudo
-      become_user: root
-
-    - name: Create a Python3 virtual environment
-      shell: |
-        python3 -m venv /home/{{ ansible_user }}/myenv
-      become: yes
-      become_method: sudo
-      become_user: root
-
     - name: Install required Python packages in the virtual environment
       pip:
         name:
-          - python3-openshift
-          - python3-pyyaml
-          - python3-kubernetes
-        virtualenv: /home/{{ ansible_user }}/myenv
+          - openshift
+          - pyyaml
+          - kubernetes
+        state: present
+        executable: /home/{{ ansible_user }}/myenv/bin/pip
       become: yes
       become_method: sudo
       become_user: root
