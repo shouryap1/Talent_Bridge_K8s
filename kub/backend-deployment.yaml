@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-node-backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: my-node-backend
@@ -19,9 +19,11 @@ spec:
             - containerPort: 8000
           resources:
             requests:
-              memory: "256Mi" # Request 256 MB of memory
+              memory: "256Mi"
+              cpu: "250m"    # Added CPU requests
             limits:
-              memory: "512Mi" # Limit to 512 MB of memory
+              memory: "512Mi"
+              cpu: "500m"    # Added CPU limits
           env:
           - name: MONGO_URL
             valueFrom:
