@@ -2,10 +2,9 @@
 - name: Deploying with Kubernetes
   hosts: all
   tasks:
-      - name: Show ansible_user
-         debug:
-
-          msg: "The ansible_user is {{ ansible_user }}"
+    - name: Show ansible_user
+      debug:
+        msg: "The ansible_user is {{ ansible_user }}"
 
     - name: Install required Python packages in the virtual environment
       pip:
@@ -25,8 +24,7 @@
         minikube ip
 
     - name: Clone the repository
-      shell:
-        git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
+      shell: git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
 
     - name: Apply Secrets
       kubernetes.core.k8s:
