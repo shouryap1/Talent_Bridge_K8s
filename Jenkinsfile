@@ -108,7 +108,7 @@ pipeline {
             steps{
                 sh'''
                  cd Talent_Bridge_K8s
-                 sudo -S -u shourya ansible-playbook playbook.yml --ask-become-pass
+                 ansible-playbook playbook.yml --ask-become-pass
                  '''
             }
 
