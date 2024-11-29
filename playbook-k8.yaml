@@ -3,12 +3,20 @@
   hosts: all
   tasks:
 
-    - name: install pre-requisites
-      pip:
-        name:
-          - openshift
-          - pyyaml
-          - kubernetes 
+    - name: Ensure pipx is installed
+      apt:
+        name: pipx
+        state: present
+      become: true
+
+    - name: Install pre-requisites with pipx
+      shell: |
+        pipx install openshift pyyaml kubernetes
+      become: true
+      environment:
+        PIPX_HOME: "/home/shourya/.local/pipx"
+        PIPX_BIN_DIR: "/home/shourya/.local/bin"
+
     - name: Start Minikube
       shell: |
         minikube start
@@ -19,6 +27,7 @@
         git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
         cd Talent_Bridge_K8s
         cd kub
+
     - name: Apply Secrets
       kubernetes.core.k8s:
         state: present
@@ -54,4 +63,4 @@
     - name: Create Ingress
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', 'frontend-service.yaml') | from_yaml }}" 
+        definition: "{{ lookup('file', 'frontend-service.yaml') | from_yaml }}"
