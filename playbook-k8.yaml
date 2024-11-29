@@ -5,11 +5,9 @@
     - name: Creating env
       shell: |
         python3 -m venv kuber
-        bash -c "source kuber/bin/activate"
-        bash -c "apt install python3-openshift"
-        bash -c "apt install python3-pyyaml ""
-        bash -c "apt install python3-kubernetes"
-
+        source kuber/bin/activate
+        apt install -y python3-openshift python3-pyyaml python3-kubernetes
+      become: yes
 
     - name: Start Minikube
       shell: |
@@ -21,6 +19,7 @@
         git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
         cd Talent_Bridge_K8s
         cd kub
+
     - name: Apply Secrets
       kubernetes.core.k8s:
         state: present
@@ -36,7 +35,6 @@
         state: present
         definition: "{{ lookup('file', 'backend-secret.yaml') | from_yaml }}" 
 
-
     - name: Create Backend Deployment
       kubernetes.core.k8s:
         state: present
@@ -47,7 +45,6 @@
         state: present
         definition: "{{ lookup('file', 'frontend-deployment.yaml') | from_yaml }}"
 
-
     - name: Create Config Map
       kubernetes.core.k8s:
         state: present
@@ -56,4 +53,4 @@
     - name: Create Ingress
       kubernetes.core.k8s:
         state: present
-        definition: "{{ lookup('file', 'frontend-service.yaml') | from_yaml }}" 
+        definition: "{{ lookup('file', 'frontend-service.yaml') | from_yaml }}"
