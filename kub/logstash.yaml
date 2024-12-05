@@ -22,18 +22,18 @@ spec:
           value: "false" # Ensure this is correctly formatted as a string
         volumeMounts:
         - name: app-log
-          mountPath: /tmp/Talent_Bridge_K8s/app.log
+          mountPath:/home/shourya/Desktop/Job_Portal_K8s/Job Portal/app.log
           subPath: app.log
         - name: logstash-conf
-          mountPath: //var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
+          mountPath: /home/shourya/Desktop/Job_Portal_K8s/Job Portal/logstash.conf
           subPath: logstash.conf
       volumes:
       - name: app-log
         hostPath:
-          path: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
+          path: /home/shourya/Desktop/Job_Portal_K8s/Job Portal/app.log
       - name: logstash-conf
         hostPath:
-          path: /var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
+          path: /home/shourya/Desktop/Job_Portal_K8s/Job Portal/logstash.conf
 
 ---
 
