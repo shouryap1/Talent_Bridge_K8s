@@ -20,8 +20,11 @@
 
     - name: Start Minikube
       shell: |
+        export MINIKUBE_HOME=/tmp/minikube
         minikube start
         minikube ip
+      environment:
+        MINIKUBE_HOME: /tmp/minikube
 
     - name: Clone the repository
       shell: git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
@@ -60,3 +63,4 @@
       kubernetes.core.k8s:
         state: present
         definition: "{{ lookup('file', '/home/{{ ansible_user }}/Talent_Bridge_K8s/kub/frontend-service.yaml') | from_yaml }}"
+  
