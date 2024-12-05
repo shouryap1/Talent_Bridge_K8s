@@ -31,14 +31,13 @@ spec:
       - name: app-log
         hostPath:
           path: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
-          type: File  # Ensure the type is 'File'
+          type: FileOrCreate  # Allow for file creation if it doesn't exist
       - name: logstash-conf
         hostPath:
           path: /var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
-          type: File  # Ensure it's 'File' type
+          type: FileOrCreate  # Allow for file creation if it doesn't exist
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
