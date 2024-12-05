@@ -22,19 +22,19 @@ spec:
           value: "false" # Ensure this is correctly formatted as a string
         volumeMounts:
         - name: app-log
-          mountPath: /home/jenkins/TalentBridge_K8s/app.log
+          mountPath: /home/jenkins/TalentBridge_K8s
           subPath: app.log
         - name: logstash-conf
-          mountPath: /home/jenkins/TalentBridge_K8s/logstash.conf
+          mountPath: /home/jenkins/TalentBridge_K8s
           subPath: logstash.conf
       volumes:
       - name: app-log
         hostPath:
-          path: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s
           type: FileOrCreate  # Allow for file creation if it doesn't exist
       - name: logstash-conf
         hostPath:
-          path: /var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s
           type: FileOrCreate  # Allow for file creation if it doesn't exist
 
 ---
