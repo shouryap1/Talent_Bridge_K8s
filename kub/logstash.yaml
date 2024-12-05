@@ -25,15 +25,15 @@ spec:
           mountPath: /tmp/Talent_Bridge_K8s/app.log
           subPath: app.log
         - name: logstash-conf
-          mountPath: /tmp/Talent_Bridge_K8s/logstash.conf
+          mountPath: //var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
           subPath: logstash.conf
       volumes:
       - name: app-log
         hostPath:
-          path: /tmp/Talent_Bridge_K8s/app.log
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
       - name: logstash-conf
         hostPath:
-          path: /tmp/Talent_Bridge_K8s/logstash.conf
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
 
 ---
 
