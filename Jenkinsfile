@@ -21,16 +21,6 @@ pipeline {
                 '''
             }
         }
-        //  stage('Setup Minikube') {
-        //     steps {
-        //         script {
-        //             // Start Minikube
-        //             sh 'minikube start'
-                    
-        //             // Set up environment variables for Kubernetes
-        //         }
-        //     }
-        // }
 
         // stage("Stage 2: Backend Testing") {
         //     steps {
