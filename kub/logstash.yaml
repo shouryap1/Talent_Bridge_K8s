@@ -34,9 +34,7 @@ spec:
       - name: logstash-conf
         hostPath:
           path: /tmp/Talent_Bridge_K8s/logstash.conf
-
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
