@@ -30,11 +30,11 @@ spec:
       volumes:
       - name: app-log
         hostPath:
-          path: /var/jenkins_home/TalentBridge_K8s/app.log
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
           type: File  # Ensure the type is 'File'
       - name: logstash-conf
         hostPath:
-          path: /var/jenkins_home/TalentBridge_K8s/logstash.conf
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
           type: File  # Ensure it's 'File' type
 
 ---
