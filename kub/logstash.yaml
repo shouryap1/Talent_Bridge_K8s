@@ -22,19 +22,19 @@ spec:
           value: "false" # Ensure this is correctly formatted as a string
         volumeMounts:
         - name: app-log
-          mountPath: /home/shourya/Desktop/Job_Portal_K8s/Job\ Portal/app.log
+          mountPath: ./app.log
           subPath: app.log
         - name: logstash-conf
-          mountPath: /home/shourya/Desktop/Job_Portal_K8s/Job\ Portal/logstash.conf
+          mountPath: ./logstash.conf
           subPath: logstash.conf
       volumes:
       - name: app-log
         hostPath:
-          path: /home/shourya/Desktop/Job_Portal_K8s/Job\ Portal/app.log
+          path: ./app.log
           type: File  # Make sure the type is 'File'
       - name: logstash-conf
         hostPath:
-          path: /home/shourya/Desktop/Job_Portal_K8s/Job\ Portal/logstash.conf
+          path: ./logstash.conf
           type: File  # Ensure it's 'File' type
 ---
 
