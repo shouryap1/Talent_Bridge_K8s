@@ -25,6 +25,9 @@
         minikube ip
       environment:
         MINIKUBE_HOME: /tmp/minikube
+    - name: Start Minikube
+      shell: |
+        minikube ip
 
     - name: Clone the repository
       shell: git clone https://github.com/shouryap1/Talent_Bridge_K8s.git
