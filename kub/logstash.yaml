@@ -19,7 +19,7 @@ spec:
         - containerPort: 5044
         env:
         - name: xpack.monitoring.enabled
-          value: "false"
+          value: "false" # Ensure this is correctly formatted as a string
         volumeMounts:
         - name: app-log
           mountPath: /tmp/Talent_Bridge_K8s/app.log
@@ -34,7 +34,9 @@ spec:
       - name: logstash-conf
         hostPath:
           path: /tmp/Talent_Bridge_K8s/logstash.conf
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
