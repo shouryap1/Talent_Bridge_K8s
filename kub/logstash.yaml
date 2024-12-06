@@ -110,7 +110,7 @@ spec:
           value: "false"
         volumeMounts:
         - name: app-log
-          mountPath: /home/jenkins/TalentBridge_K8s/app.log
+          mountPath: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
           subPath: app.log
         - name: logstash-conf
           mountPath: /var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
