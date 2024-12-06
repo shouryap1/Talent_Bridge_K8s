@@ -23,7 +23,7 @@ spec:
         - name: ES_JAVA_OPTS
           value: "-Xms512m -Xmx512m"
         volumeMounts:
-        - mountPath: /usr/share/elasticsearch/data
+        - mountPath: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
           name: es-data
       volumes:
       - name: es-data
