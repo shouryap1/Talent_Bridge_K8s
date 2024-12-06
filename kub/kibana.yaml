@@ -32,4 +32,5 @@ spec:
   - protocol: TCP
     port: 5601
     targetPort: 5601
-  type: ClusterIP
+    nodePort: 32000
+  type: NodePort
