@@ -113,7 +113,7 @@ spec:
           mountPath: /home/jenkins/TalentBridge_K8s/app.log
           subPath: app.log
         - name: logstash-conf
-          mountPath: /usr/share/logstash/pipeline/logstash.conf
+          mountPath: /home/jenkins/TalentBridge_K8s/app.log
           subPath: logstash.conf
       volumes:
       - name: app-log
