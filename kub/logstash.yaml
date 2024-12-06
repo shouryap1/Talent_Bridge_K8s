@@ -30,11 +30,11 @@ spec:
       volumes:
       - name: app-log
         hostPath:
-          path: /var/lib/jenkins/workspace/TalentBridge_K8s
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s/app.log
           type: FileOrCreate  # Allow for file creation if it doesn't exist
       - name: logstash-conf
         hostPath:
-          path: /var/lib/jenkins/workspace/TalentBridge_K8s
+          path: /var/lib/jenkins/workspace/TalentBridge_K8s/logstash.conf
           type: FileOrCreate  # Allow for file creation if it doesn't exist
 
 ---
