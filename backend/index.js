@@ -7,6 +7,10 @@ import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
+import logger from "./logger.js";
+import morgan from "morgan";
+
+const morganFormat = ":method :url :status :response-time ms";
 
 dotenv.config({});
 
@@ -22,7 +26,21 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
-
+app.use(
+    morgan(morganFormat, {
+      stream: {
+        write: (message) => {
+          const logObject = {
+            method: message.split(" ")[0],
+            url: message.split(" ")[1],
+            status: message.split(" ")[2],
+            responseTime: message.split(" ")[3],
+          };
+          logger.info(JSON.stringify(logObject));
+        },
+      },
+    })
+  );
 const PORT = 8000 || 3000;
 // const PORT = process.env.PORT || 3000;
 
