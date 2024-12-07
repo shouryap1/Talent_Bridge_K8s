@@ -8,6 +8,7 @@ pipeline {
         API_SECRET = credentials("cloud_api_secret")
         PORT = "8000" 
         MINIKUBE_HOME = '/home/jenkins/.minikube'
+        VAULT_PASS = credentials("ansible_vault_pass")
     }
     agent any
     tools {nodejs "NODEJS"} 
@@ -106,11 +107,14 @@ pipeline {
         //     }
         // }
         stage("Stage 8: Ansible"){
-            steps{
-                sh'''
-                 cd Talent_Bridge_K8s
-                 ansible-playbook -i inventory-k8 --ask-vault-pass playbook-k8-new.yaml 
-                 '''
+            steps {
+                sh '''
+                cd Talent_Bridge_K8s
+                echo "$VAULT_PASS" > /tmp/vault_pass.txt
+                chmod 600 /tmp/vault_pass.txt
+                ansible-playbook -i inventory-k8 --vault-password-file /tmp/vault_pass.txt playbook-k8-new.yaml
+                rm -f /tmp/vault_pass.txt
+                '''
             }
 
         }
