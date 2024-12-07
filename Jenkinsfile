@@ -73,7 +73,7 @@ pipeline {
         stage("Stage 4.5: Scan Docker Image for frontend") {
             steps {
                 sh '''
-                trivy image -t shouryap1/frontend:latest .
+                trivy image shouryap1/frontend:latest
                 '''
             }
         }
