@@ -28,7 +28,7 @@ pipeline {
                 cd backend
                 npm i
                 cd tests
-                npm install mocha chai sinon
+                npm install mocha chai sinon prom-client
                 npm test
                 '''
             }
