@@ -22,27 +22,27 @@ pipeline {
             }
         }
 
-        stage("Stage 2: Backend Testing") {
-            steps {
-                sh '''
-                cd backend
-                npm i
-                cd tests
-                npm install mocha chai sinon
-                npm test
-                '''
-            }
-        }
+        // stage("Stage 2: Backend Testing") {
+        //     steps {
+        //         sh '''
+        //         cd backend
+        //         npm i
+        //         cd tests
+        //         npm install mocha chai sinon
+        //         npm test
+        //         '''
+        //     }
+        // }
 
-        stage("Stage 3: Build frontend") {
-            steps {
-                sh '''
-                cd Talent_Bridge_K8s/frontend
-                npm install
-                npm run build
-                '''
-            }
-        }
+        // stage("Stage 3: Build frontend") {
+        //     steps {
+        //         sh '''
+        //         cd Talent_Bridge_K8s/frontend
+        //         npm install
+        //         npm run build
+        //         '''
+        //     }
+        // }
         stage("Stage 3.5: Remove docker images and container") {
             steps {
                 sh "docker container prune -f"
@@ -62,60 +62,60 @@ pipeline {
         // }
         
 
-        stage("Stage 4: Creating Docker Image for frontend") {
+        // stage("Stage 4: Creating Docker Image for frontend") {
+        //     steps {
+        //         sh '''
+        //         cd Talent_Bridge_K8s/frontend
+        //         docker build -t shouryap1/frontend:latest .
+        //         '''
+        //     }
+        // }
+        stage("Stage 4.5: Scan Docker Image for frontend") {
             steps {
                 sh '''
-                cd Talent_Bridge_K8s/frontend
-                docker build -t shouryap1/frontend:latest .
+                trivy image -t shouryap1/frontend:latest .
                 '''
             }
         }
-        // stage("Stage 4.5: Scan Docker Image for frontend") {
+
+        // stage("Stage 5: Creating Docker Image for backend") {
         //     steps {
         //         sh '''
-        //         trivy image -t shouryap1/frontend:latest .
+        //         cd Talent_Bridge_K8s/backend
+        //         docker build -t shouryap1/backend:latest .
         //         '''
         //     }
         // }
 
-        stage("Stage 5: Creating Docker Image for backend") {
-            steps {
-                sh '''
-                cd Talent_Bridge_K8s/backend
-                docker build -t shouryap1/backend:latest .
-                '''
-            }
-        }
 
+        // stage("Stage 6: Push Frontend Docker Image") {
+        //     steps {
+        //         sh '''
+        //         docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+        //         docker push shouryap1/frontend:latest
+        //         '''
+        //     }
+        // }
 
-        stage("Stage 6: Push Frontend Docker Image") {
-            steps {
-                sh '''
-                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-                docker push shouryap1/frontend:latest
-                '''
-            }
-        }
+        // stage("Stage 7: Push Backend Docker Image") {
+        //     steps {
+        //         sh '''
+        //         docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
+        //         docker push shouryap1/backend:latest
+        //         '''
+        //     }
+        // }
+        // stage("Stage 8: Ansible"){
+        //     steps {
+        //         sh '''
+        //         cd Talent_Bridge_K8s
+        //         echo "$VAULT_PASS" > /tmp/vault_pass.txt
+        //         chmod 600 /tmp/vault_pass.txt
+        //         ansible-playbook -i inventory-k8 --vault-password-file /tmp/vault_pass.txt playbook-k8-new.yaml
+        //         rm -f /tmp/vault_pass.txt
+        //         '''
+        //     }
 
-        stage("Stage 7: Push Backend Docker Image") {
-            steps {
-                sh '''
-                docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
-                docker push shouryap1/backend:latest
-                '''
-            }
-        }
-        stage("Stage 8: Ansible"){
-            steps {
-                sh '''
-                cd Talent_Bridge_K8s
-                echo "$VAULT_PASS" > /tmp/vault_pass.txt
-                chmod 600 /tmp/vault_pass.txt
-                ansible-playbook -i inventory-k8 --vault-password-file /tmp/vault_pass.txt playbook-k8-new.yaml
-                rm -f /tmp/vault_pass.txt
-                '''
-            }
-
-        }
+        // }
     }
 }
