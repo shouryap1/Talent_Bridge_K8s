@@ -109,7 +109,7 @@ pipeline {
             steps{
                 sh'''
                  cd Talent_Bridge_K8s
-                 ansible-playbook -i inventory-k8 playbook-k8-new.yaml 
+                 ansible-playbook -i inventory-k8 --ask-vault-pass playbook-k8-new.yaml 
                  '''
             }
 
