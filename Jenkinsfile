@@ -60,7 +60,14 @@ pipeline {
                 '''
             }
         }
-        stage("Stage 4.2: Push Frontend Docker Image") {
+        stage("Stage 4.2: Scan Docker Image for frontend") {
+            steps {
+                sh '''
+                trivy image shouryap1/frontend:latest
+                '''
+            }
+        }
+        stage("Stage 4.3: Push Frontend Docker Image") {
             steps {
                 sh '''
                 docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
@@ -69,13 +76,7 @@ pipeline {
             }
         }
 
-        stage("Stage 4.3: Scan Docker Image for frontend") {
-            steps {
-                sh '''
-                trivy image shouryap1/frontend:latest
-                '''
-            }
-        }
+        
 
         
 
@@ -87,9 +88,16 @@ pipeline {
                 '''
             }
         }
+        stage("Stage 5.2: Scan Docker Image for backend") {
+            steps {
+                sh '''
+                trivy image shouryap1/backend:latest
+                '''
+            }
+        }
 
 
-        stage("Stage 5.2: Push Backend Docker Image") {
+        stage("Stage 5.3: Push Backend Docker Image") {
             steps {
                 sh '''
                 docker login -u ${DOCKERHUB_CRED_USR} -p ${DOCKERHUB_CRED_PSW}
@@ -98,13 +106,7 @@ pipeline {
             }
         }
 
-        stage("Stage 5.3: Scan Docker Image for backend") {
-            steps {
-                sh '''
-                trivy image shouryap1/backend:latest
-                '''
-            }
-        }
+        
 
         stage("Stage 8: Ansible"){
             steps {
