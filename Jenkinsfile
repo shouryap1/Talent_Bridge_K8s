@@ -52,11 +52,11 @@ pipeline {
         // stage("Stage 3.75: Install Trivy ") {
         //     steps {
         //         sh '''
-        //         sudo apt install wget
-        //         wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-        //         echo "deb https://aquasecurity.github.io/trivy-repo/deb stable main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
-        //         sudo apt update
-        //         sudo apt install trivy
+                // sudo apt install wget
+                // wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+                // echo "deb https://aquasecurity.github.io/trivy-repo/deb stable main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+                // sudo apt update
+                // sudo apt install trivy
         //         '''
         //     }
         // }
@@ -70,13 +70,13 @@ pipeline {
                 '''
             }
         }
-        stage("Stage 4.5: Scan Docker Image for frontend") {
-            steps {
-                sh '''
-                trivy image -t shouryap1/frontend:latest .
-                '''
-            }
-        }
+        // stage("Stage 4.5: Scan Docker Image for frontend") {
+        //     steps {
+        //         sh '''
+        //         trivy image -t shouryap1/frontend:latest .
+        //         '''
+        //     }
+        // }
 
         stage("Stage 5: Creating Docker Image for backend") {
             steps {
