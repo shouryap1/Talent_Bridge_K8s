@@ -5,45 +5,11 @@
       debug:
         msg: "The ansible_user is {{ ansible_user }}"
 
-    - name: Install wget
-      apt:
-        name: wget
-        state: present
-        update_cache: yes
-
-    - name: Add Trivy public key
-      command: wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | apt-key add -
-      args:
-        creates: /etc/apt/trusted.gpg.d/trivy-repo.gpg
-
-    - name: Add Trivy repository
-      shell: echo "deb https://aquasecurity.github.io/trivy-repo/deb stable main" | tee -a /etc/apt/sources.list.d/trivy.list
-      args:
-        creates: /etc/apt/sources.list.d/trivy.list
-
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-
-    - name: Install Trivy
-      apt:
-        name: trivy
-        state: present
-
     - name: Clone the repository
       git:
         repo: https://github.com/shouryap1/Talent_Bridge_K8s.git
         dest: /tmp/Talent_Bridge_K8s
-
-    - name: Scan Docker image with Trivy
-      command: trivy image -t shouryap1/frontend:latest .
-      args:
-        chdir: /tmp/Talent_Bridge_K8s  # Change directory to the repository path
-    
-    - name: Scan Docker image with Trivy
-      command: trivy image -t shouryap1/backend:latest .
-      args:
-        chdir: /tmp/Talent_Bridge_K8s  # Change directory to the repository path
+      
 
     - name: Apply Kubernetes manifests
       command: kubectl apply -f /tmp/Talent_Bridge_K8s/kub
